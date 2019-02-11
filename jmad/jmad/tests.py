@@ -36,8 +36,10 @@ class StudentTestCase(LiveServerTestCase):
         instrument_input.send_keys('saxophone')
         self.browser.find_element_by_css_selector('form button').click()
 
-        # He sees too many search results...
+        # He sees too many search results so he adds a particular artist to his search query
 
+        search_results = self.browser.find_elements_by_css_selector('.jmad-search-result')
+        self.assertGreater(len(search_results), 2)
         # ...so he adds an artist to his search query and gets a more manageable list.
 
         # He clicks on a search result.

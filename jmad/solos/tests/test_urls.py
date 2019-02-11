@@ -12,5 +12,3 @@ class SolosURLsTestCase(TestCase):
         """
         root = resolve('/')
         self.assertEqual(root.func, index)
-
-        
