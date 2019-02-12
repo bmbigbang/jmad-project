@@ -13,22 +13,30 @@ class StudentTestCase(LiveServerTestCase):
         self.solo1 = Solo.objects.create(
             instrument='saxophone',
             artist='John Coltrane',
-            track='My Favorite Things'
+            track='My Favorite Things',
+            album='My Favorite Things'
         )
         self.solo2 = Solo.objects.create(
             instrument='saxophone',
             artist='Cannonball Adderley',
-            track='All Blues'
+            track='All Blues',
+            album='Kind of Blue',
+            start_time='2:06',
+            end_time='4:01'
         )
         self.solo3 = Solo.objects.create(
             instrument='saxophone',
             artist='Cannonball Adderley',
-            track='Waltz for Debby'
+            track='Waltz for Debby',
+            album='Know What I Mean'
         )
 
     def tearDown(self):
         # run on each shut down
         self.browser.quit()
+
+    def find_search_results(self):
+        return self.browser.find_elements_by_css_selector('.jmad-search-result a')
 
     def test_student_find_solos(self):
         """
@@ -55,18 +63,13 @@ class StudentTestCase(LiveServerTestCase):
 
         # He sees too many search results so he adds a particular artist to his search query
 
-        search_results = self.browser.find_elements_by_css_selector('.jmad-search-result')
+        search_results = self.find_search_results()
         self.assertEqual(len(search_results), 3)
         # ...so he adds an artist to his search query and gets a more manageable list.
-
+        second_search_results = self.find_search_results()
         # He clicks on a search result.
-        self.assertEqual(self.browser.find_element_by_css_selector(
-            '#jmad-start-time').text, '2:06'
-        )
 
-        self.assertEqual(self.browser.find_element_by_css_selector(
-            '#jmad-end-time').text, '4:01'
-        )
+
 
         # The solo page has the title, artist and album for this particular solo.
 
