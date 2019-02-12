@@ -5,7 +5,7 @@ from solos.models import Solo
 
 class SoloModelTestCase(TestCase):
     def setUp(self):
-        Solo.objects.create(
+        self.solo = Solo.objects.create(
             track='Falling in Love with Love',
             artist='Oscar Peterson',
             instrument='piano'
@@ -15,4 +15,4 @@ class SoloModelTestCase(TestCase):
         """
         Test the basic functionality of Solo
         """
-        self.assertEqual(self.solo.artist, 'Peterson')
+        self.assertEqual(self.solo.artist, 'Oscar Peterson')
